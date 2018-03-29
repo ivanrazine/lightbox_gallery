@@ -1,5 +1,7 @@
 var lightbox_images = document.querySelectorAll("[data-rel='lightbox']");
 
+var lightbox_index = void 0;
+
 var lightbox = document.createElement("div");
     lightbox.className = "lightbox";
     document.body.appendChild(lightbox);
@@ -69,7 +71,7 @@ function close() {
 
 }
 
-var lightbox_index = void 0;
+
 
 function next() {
 
@@ -90,8 +92,6 @@ function prev() {
     lightbox_index--;
 
     if(lightbox_index < 0) lightbox_index = lightbox_images.length - 1;
-
-    console.log(lightbox_index);
 
     switchTo(lightbox_index);
 
