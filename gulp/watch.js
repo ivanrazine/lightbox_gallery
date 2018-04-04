@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat-multi'),
     notify = require("gulp-notify"),
+    autoprefixer = require("gulp-autoprefixer"),
     browserSync = require('browser-sync').create();
 
 gulp.task('jsDev', function() {
@@ -21,6 +22,11 @@ gulp.task('jsBrowserSync', ['jsDev'], function (done) {
     done();
 });
 
+gulp.task('BrowserSync', function (done) {
+    browserSync.reload();
+    done();
+});
+
 gulp.task('cssDev', function() {
     return gulp.src('./src/sass/**/*.scss')
         .pipe(sass({ outputStyle: 'expanded', errLogToConsole: false }))
@@ -28,6 +34,10 @@ gulp.task('cssDev', function() {
             notify().write(err);
             this.emit('end');
         })
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest('./app/css/'))
         .pipe(browserSync.stream());
         
@@ -42,6 +52,7 @@ gulp.task('watch', function () {
 
     gulp.watch('./src/sass/**/*.scss',['cssDev']);
     gulp.watch('./src/js/**/*.js',['jsBrowserSync']);
+    gulp.watch('./app/**/*.html',['BrowserSync']);
 
 });
 
