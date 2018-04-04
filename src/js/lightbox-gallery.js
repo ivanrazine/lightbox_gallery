@@ -1,12 +1,17 @@
+/////////////////////////////////////////////////////
+////// LIGHTBOX GALLERY
+/////////////////////////////////////////////////////
+
 var lightbox_images = document.querySelectorAll("[data-rel='lightbox']");
 
-var lightbox_index = void 0;
+var lightbox_index = void 0,
+    origin = void 0; 
 
 var lightbox = document.createElement("div");
     lightbox.className = "lightbox";
     document.body.appendChild(lightbox);
 
-var spinner = document.createElement("div");
+var spinner = document.createElement("div");  
     spinner.className = "spinner";
     lightbox.appendChild(spinner);     
 
@@ -26,8 +31,8 @@ for (i = 0; i < lightbox_images.length; i++) {
 
                 lightbox.querySelectorAll("figure")[j].classList.remove("fade-in");
 
-            }
-
+            }  
+ 
         }
 
         if(lightbox.querySelector("[data-index='" + this.dataset.index + "']")) {
@@ -57,20 +62,16 @@ for (i = 0; i < lightbox_images.length; i++) {
 
             lightbox.appendChild(imgBox);
 
-            img.onload = function() {
-
+            imagesLoaded(img, function( instance ) {
                 imgBox.classList.add("fade-in");
                 spinner.classList.add("hidden");
-
-            } 
+            });
 
         }
 
     });
 
 }
-
-lightbox.addEventListener("click", close, false);
 
 function close() {
 
@@ -106,8 +107,6 @@ function prev() {
     lightbox_index = lightbox.querySelector(".fade-in").dataset.index;
 
     lightbox_index--;
-
-    console.log(lightbox_index);
 
     if(lightbox_index < 0) lightbox_index = lightbox_images.length - 1;
 
@@ -155,18 +154,14 @@ function switchTo(index) {
 
         lightbox.appendChild(imgBox);
 
-        img.onload = function() {
-
+        imagesLoaded(img, function( instance ) {
             imgBox.classList.add("fade-in");
             spinner.classList.add("hidden");
-
-        }
+        });
 
     }
 
 }
-
-document.addEventListener("keydown", keyPress, false);
 
 function keyPress(e) {
 
@@ -174,13 +169,7 @@ function keyPress(e) {
 
     if(lightbox.classList.contains("active")) {
 
-        if (e.keyCode == '38') {
-            next();
-        }
-        else if (e.keyCode == '40') {
-            prev();
-        }
-        else if (e.keyCode == '37') {
+        if (e.keyCode == '37') {
             prev();
         }
         else if (e.keyCode == '39') {
@@ -193,3 +182,20 @@ function keyPress(e) {
     }
 
 }
+
+lightbox.addEventListener("click", close, false);
+
+document.addEventListener("keydown", keyPress, false);
+
+lightbox.addEventListener("touchstart", function(event) {
+
+    origin = event.touches[0].clientX;
+
+});
+
+lightbox.addEventListener("touchend", function(event) {
+
+    var end = event.changedTouches[0].clientX;
+    origin > end + 60 ? next() : origin < end - 60 && prev();
+
+});

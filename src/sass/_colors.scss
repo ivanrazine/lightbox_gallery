@@ -1,0 +1,187 @@
+/*****************************************************************
+
+  COLORS
+
+*****************************************************************/
+
+$primary: #222;
+$secondary: #666666;
+$black: #212121;
+$pitch: #000000;
+$white: #ffffff;
+$gray: #666666;
+$yellow: #ffc107;
+$red:  #ED1C24;
+$teal: #009588;
+$orange: #ff5722;
+$lime: #00e676;
+$blue: #00ABF5;
+$green: #8AC742;
+
+$fb: #4267b2;
+$tw: #1da1f2;
+$ln: #0077b5;
+$ml: #dc483c;
+
+$gray-5: lighten($black, 80%);
+$gray-10: lighten($black, 75%);
+$gray-20: lighten($black, 70%);
+$gray-30: lighten($black, 65%);
+$gray-40: lighten($black, 60%);
+$gray-50: lighten($black, 55%);
+$gray-60: lighten($black, 50%);
+$gray-70: lighten($black, 45%);
+$gray-80: lighten($black, 40%);
+$gray-90: lighten($black, 35%);
+
+/*****************************************************************
+
+  BACKGROUNDS
+
+*****************************************************************/
+
+.bg-primary {
+    background-color: $primary !important; 
+}
+
+.bg-secondary {
+    background-color: $secondary !important; 
+}
+
+.bg-black {
+    background-color: $black !important; 
+}
+
+.bg-white {
+    background-color: $white !important; 
+}
+
+.bg-lime {
+    background-color: $lime !important; 
+}
+
+.bg-fb {
+    background-color: $fb !important; 
+}
+
+.bg-tw {
+    background-color: $tw !important; 
+}
+
+.bg-ln {
+    background-color: $ln !important; 
+}
+
+.bg-ml {
+    background-color: $ml !important; 
+}
+
+.bg-gray-5 {
+    background-color: $gray-5 !important;
+}
+
+.bg-gray-10 {
+    background-color: $gray-10 !important;
+}
+
+.bg-gray-20 {
+    background-color: $gray-20 !important;
+}
+
+.bg-gray-30 {
+    background-color: $gray-30 !important;
+}
+
+.bg-gray-40 {
+    background-color: $gray-40 !important;
+}
+
+.bg-gray-50 {
+    background-color: $gray-50 !important;
+}
+
+.bg-text-gray-60 {
+    background-color: $gray-60 !important;
+}
+
+.bg-gray-70 {
+    background-color: $gray-70 !important;
+}
+
+.bg-gray-80 {
+    background-color: $gray-80 !important;
+}
+
+.bg-gray-90 {
+    background-color: $gray-90 !important;
+}
+
+/*****************************************************************
+
+  TEXT
+
+*****************************************************************/
+
+.text {
+
+    &-lime {
+        color: $lime !important;
+    }
+    
+    &-white {
+        color: $white !important;
+    }
+    
+    &-black {
+        color: $black !important;
+    }
+    
+    &-primary {
+        color: $primary !important;
+    }
+    
+    &-secondary {
+        color: $secondary !important;
+    }
+    
+    &-gray {
+        color: $gray !important;
+    }
+
+}
+
+.text-gray-10 {
+    color: $gray-10 !important;
+}
+
+.text-gray-20 {
+    color: $gray-20 !important;
+}
+
+.text-gray-30 {
+    color: $gray-30 !important;
+}
+
+.text-gray-40 {
+    color: $gray-40 !important;
+}
+
+.text-gray-50 {
+    color: $gray-50 !important;
+}
+
+.text-text-gray-60 {
+    color: $gray-60 !important;
+}
+
+.text-gray-70 {
+    color: $gray-70 !important;
+}
+
+.text-gray-80 {
+    color: $gray-80 !important;
+}
+
+.text-gray-90 {
+    color: $gray-90 !important;
+}
