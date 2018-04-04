@@ -6,10 +6,6 @@ var lightbox = document.createElement("div");
     lightbox.className = "lightbox";
     document.body.appendChild(lightbox);
 
-var spinner = document.createElement("div");
-    spinner.className = "spinner";
-    lightbox.appendChild(spinner);     
-
 for (i = 0; i < lightbox_images.length; i++) {
 
     lightbox_images[i].dataset.index = i;
@@ -20,11 +16,11 @@ for (i = 0; i < lightbox_images.length; i++) {
 
         lightbox.classList.add("active");
 
-        if(lightbox.querySelectorAll("figure")) {
+        if(lightbox.querySelectorAll(".img")) {
 
-            for (j = 0; j < lightbox.querySelectorAll("figure").length; j++) {
+            for (j = 0; j < lightbox.querySelectorAll(".img").length; j++) {
 
-                lightbox.querySelectorAll("figure")[j].classList.remove("fade-in");
+                lightbox.querySelectorAll(".img")[j].classList.remove("fade-in");
 
             }
 
@@ -32,35 +28,29 @@ for (i = 0; i < lightbox_images.length; i++) {
 
         if(lightbox.querySelector("[data-index='" + this.dataset.index + "']")) {
 
-            spinner.classList.add("hidden");
             lightbox.querySelector("[data-index='" + this.dataset.index + "']").classList.add("fade-in");
 
         } else {
 
-            spinner.classList.remove("hidden");
-
             var img = new Image();
                 img.src = this.href;
-                lightbox.appendChild(img);
 
-            var imgBox = document.createElement("figure");
+            var imgBox = document.createElement("div");
+                imgBox.className = "img";    
                 imgBox.dataset.index = this.dataset.index;
                 imgBox.appendChild(img);
 
-            if(this.parentNode.querySelector("figcaption") != null) {
+            if(this.querySelector("figcaption")) {
 
-                var caption = document.createElement("figcaption");
-                caption.innerText = this.parentNode.querySelector("figcaption").innerText;
-                imgBox.appendChild(caption);
+                imgBox.appendChild(this.querySelector("figcaption").cloneNode(true));
 
-            } 
+            }    
 
             lightbox.appendChild(imgBox);
 
             img.onload = function() {
 
                 imgBox.classList.add("fade-in");
-                spinner.classList.add("hidden");
 
             } 
 
@@ -70,24 +60,21 @@ for (i = 0; i < lightbox_images.length; i++) {
 
 }
 
-lightbox.addEventListener("click", close, false);
-
 function close() {
 
     lightbox.classList.remove("active");
 
-    if(lightbox.querySelectorAll("figure")) {
+    if(lightbox.querySelectorAll(".img")) {
 
-        for (j = 0; j < lightbox.querySelectorAll("figure").length; j++) {
+        for (j = 0; j < lightbox.querySelectorAll(".img").length; j++) {
 
-            lightbox.querySelectorAll("figure")[j].classList.remove("fade-in");
+            lightbox.querySelectorAll(".img")[j].classList.remove("fade-in");
 
         }
 
     }
 
 }
-
 
 function next() {
 
@@ -107,8 +94,6 @@ function prev() {
 
     lightbox_index--;
 
-    console.log(lightbox_index);
-
     if(lightbox_index < 0) lightbox_index = lightbox_images.length - 1;
 
     switchTo(lightbox_index);
@@ -117,15 +102,11 @@ function prev() {
 
 function switchTo(index) {
 
-    var _this = document.querySelector("[data-rel='lightbox'][data-index='" + index + "']");
+    if(lightbox.querySelectorAll(".img")) {
 
-    spinner.classList.remove("hidden");
+        for (j = 0; j < lightbox.querySelectorAll(".img").length; j++) {
 
-    if(lightbox.querySelectorAll("figure")) {
-
-        for (j = 0; j < lightbox.querySelectorAll("figure").length; j++) {
-
-            lightbox.querySelectorAll("figure")[j].classList.remove("fade-in");
+            lightbox.querySelectorAll(".img")[j].classList.remove("fade-in");
 
         }
 
@@ -133,40 +114,36 @@ function switchTo(index) {
 
     if(lightbox.querySelector("[data-index='" + index + "']")) {
 
-        spinner.classList.add("hidden");
         lightbox.querySelector("[data-index='" + index + "']").classList.add("fade-in");
 
     } else {
 
         var img = new Image();
-            img.src = _this.href;
+            img.src = document.querySelector("[data-rel='lightbox'][data-index='" + index + "']").href;
 
-        var imgBox = document.createElement("figure");
+        var imgBox = document.createElement("div");
+            imgBox.className = "img";    
             imgBox.dataset.index = index;
             imgBox.appendChild(img);
 
-        if(_this.parentNode.querySelector("figcaption") != null) {
+        if(document.querySelector("[data-rel='lightbox'][data-index='" + index + "'] figcaption")) {
 
-            var caption = document.createElement("figcaption");
-            caption.innerText = _this.parentNode.querySelector("figcaption").innerText;
+            var caption = document.querySelector("[data-rel='lightbox'][data-index='" + index + "'] figcaption").cloneNode(true);
             imgBox.appendChild(caption);
 
-        } 
+        }  
 
         lightbox.appendChild(imgBox);
 
         img.onload = function() {
 
             imgBox.classList.add("fade-in");
-            spinner.classList.add("hidden");
 
-        }
+        } 
 
     }
 
 }
-
-document.addEventListener("keydown", keyPress, false);
 
 function keyPress(e) {
 
@@ -193,3 +170,6 @@ function keyPress(e) {
     }
 
 }
+
+lightbox.addEventListener("click", close, false);
+document.addEventListener("keydown", keyPress, false);
